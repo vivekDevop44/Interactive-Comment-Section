@@ -1,0 +1,48 @@
+// @import 'style.scss';
+@import "color";
+@media (min-width: 768px) {
+  main{
+    .comment_div{
+      display: flex;
+      .desktop-votes{
+        display: block;
+        @include flex(center,space-around);
+        flex-direction: column;
+        width: 3rem;
+        height: 6rem;
+        background: $LightGray;
+        padding: .5rem 0;
+        border-radius: .5rem;
+        margin-right: 1.5rem;
+        .minus{
+          display: flex;
+          align-items: center;
+        }
+      }
+      .profile-div{
+        width: 100%;
+        .desktop-reply-btn{
+          display: block;
+        }
+      }
+      .mobile-stats{
+        display: none;
+      }
+    }
+  }
+  .write-comment{
+    gap: 1rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    .desktop-current-user-pic,.desktop-send-btn{
+      display: block;
+    }
+    textarea{
+      height: 8rem;
+    }
+    .mobile-user-pic-send-btn{
+      display: none;
+    }
+  }
+}

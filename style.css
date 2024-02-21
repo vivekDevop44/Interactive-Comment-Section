@@ -1,0 +1,279 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Rubik", sans-serif;
+}
+
+body {
+  background-color: hsl(223, 19%, 93%);
+}
+
+main {
+  width: min(90%, 55rem);
+  margin: auto;
+}
+main .cursor-pointer {
+  cursor: pointer;
+}
+main .user:last-child {
+  margin-bottom: 12rem;
+}
+main .user {
+  margin-block: 2rem;
+}
+main .user .desktop-votes {
+  display: none;
+}
+main .user .comment_div {
+  background: hsl(0, 0%, 100%);
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+main .user .comment_div > div:not(.desktop-votes) {
+  width: 100%;
+}
+main .user .reply {
+  margin-block: 1rem;
+  margin-left: clamp(0.5rem, 4.2vw, 3rem);
+  width: 95%;
+}
+main .user .profile-div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 1rem;
+}
+main .user .profile-div > div:not(.desktop-reply-btn) {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: min(100%, 18rem);
+}
+main .user .profile-div .delete {
+  color: hsl(358, 79%, 66%);
+  margin-right: 0.5rem;
+}
+main .user .profile-div .user-name {
+  font-weight: bold;
+  color: hsl(212, 24%, 26%);
+}
+main .user .profile-div .you {
+  background: hsl(238, 40%, 52%);
+  color: hsl(0, 0%, 100%);
+  padding: 0.1rem 0.5rem;
+  border-radius: 0.15rem;
+}
+main .user .profile-div .post-date {
+  color: hsl(211, 10%, 45%);
+}
+main .user .profile-div .desktop-reply-btn {
+  display: none;
+  color: hsl(238, 40%, 52%);
+  font-weight: 500;
+}
+main .user .profile-div .desktop-reply-btn span:hover {
+  opacity: 0.5;
+}
+main .user .profile-div .user-pic {
+  height: 3rem;
+  aspect-ratio: 1;
+}
+main .user .profile-div .user-pic img {
+  height: 100%;
+  aspect-ratio: 1;
+}
+main .user .mobile-stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 1rem;
+}
+main .user .mobile-stats .mobile-votes {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 6rem;
+  background: hsl(223, 19%, 93%);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+}
+main .user .mobile-stats .mobile-votes .minus {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+main .user .vote-num,
+main .user .mobile-reply-btn {
+  color: hsl(238, 40%, 52%);
+}
+main .user .user-comment .reply-to {
+  color: hsl(238, 40%, 52%);
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+main .user .user-comment p {
+  color: hsl(239, 57%, 85%);
+  line-height: 1.3;
+  display: inline;
+}
+
+.write-comment {
+  background: hsl(0, 0%, 100%);
+  width: min(92%, 55rem);
+  margin: auto;
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  translate: -50%;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  -webkit-box-shadow: 0 0 1rem -0.25rem rgba(0, 0, 0, 0.5);
+          box-shadow: 0 0 1rem -0.25rem rgba(0, 0, 0, 0.5);
+}
+.write-comment .desktop-current-user-pic,
+.write-comment .desktop-send-btn {
+  display: none;
+}
+.write-comment .mobile-user-pic-send-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-top: 1rem;
+}
+.write-comment .user-pic {
+  height: 3rem;
+  aspect-ratio: 1;
+}
+.write-comment .user-pic img {
+  height: 100%;
+  aspect-ratio: 1;
+}
+.write-comment .send-btn {
+  background: hsl(238, 40%, 52%);
+  border: none;
+  font-size: 1.2em;
+  color: hsl(0, 0%, 100%);
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  -webkit-transition: all 0.1s ease-in-out;
+  transition: all 0.1s ease-in-out;
+}
+.write-comment .send-btn:hover {
+  opacity: 0.5;
+}
+.write-comment textarea {
+  padding: 1rem 1.5rem;
+  width: 100%;
+  border-radius: 0.25rem;
+  outline: none;
+  resize: none;
+}
+
+@media (max-width: 370px) {
+  html {
+    font-size: 14px;
+  }
+}
+@media (min-width: 768px) {
+  main .comment_div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  main .comment_div .desktop-votes {
+    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    width: 3rem;
+    height: 6rem;
+    background: hsl(223, 19%, 93%);
+    padding: 0.5rem 0;
+    border-radius: 0.5rem;
+    margin-right: 1.5rem;
+  }
+  main .comment_div .desktop-votes .minus {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  main .comment_div .profile-div {
+    width: 100%;
+  }
+  main .comment_div .profile-div .desktop-reply-btn {
+    display: block;
+  }
+  main .comment_div .mobile-stats {
+    display: none;
+  }
+  .write-comment {
+    gap: 1rem;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .write-comment .desktop-current-user-pic, .write-comment .desktop-send-btn {
+    display: block;
+  }
+  .write-comment textarea {
+    height: 8rem;
+  }
+  .write-comment .mobile-user-pic-send-btn {
+    display: none;
+  }
+}/*# sourceMappingURL=style.css.map */
