@@ -17,11 +17,17 @@ body {
 main {
   width: min(90%, 55rem);
   margin: auto;
-  .cursor-pointer { 
+  .cursor-pointer {
     cursor: pointer;
   }
   .user:last-child {
     margin-bottom: 12rem;
+  }
+  textarea{
+    width: 100%;
+    height: 5rem;
+    border: none;
+    color: gray;
   }
   .user {
     margin-block: 2rem;
@@ -32,29 +38,42 @@ main {
       background: $White;
       padding: 1.5rem;
       border-radius: 0.5rem;
-      &>div:not(.desktop-votes){
+      & > div:not(.desktop-votes) {
         width: 100%;
       }
     }
+    .delete {
+      color: $SoftRed;
+      margin-right: 0.5rem;
+      &:hover{
+        opacity: .5;
+      }
+    }
+    .edit{
+      color: $ModerateBlue;
+      &:hover{
+        opacity: .5;
+      }
+    }
+    .user-name {
+      font-weight: bold;
+      color: $DarkBlue;
+    }
     .reply {
       margin-block: 1rem;
-      margin-left: clamp(0.5rem, 4.2vw, 3rem);
+      margin-left: clamp(0.5rem, 4.5vw, 2.8rem);
       width: 95%;
     }
     .profile-div {
       @include flex(center, space-between);
       margin-bottom: 1rem;
-      & > div:not(.desktop-reply-btn) {
+      & > div:first-child {
         @include flex(center, space-between);
         width: min(100%, 18rem);
       }
-      .delete{
-        color: $SoftRed;
-        margin-right: .5rem;
-      }
-      .user-name {
-        font-weight: bold;
-        color: $DarkBlue;
+      .del-update{
+        width: 8rem !important;
+        display: none ;
       }
       .you {
         background: $ModerateBlue;
@@ -69,8 +88,8 @@ main {
         display: none;
         color: $ModerateBlue;
         font-weight: 500;
-        span:hover{
-         opacity: .5;
+        span:hover {
+          opacity: 0.5;
         }
       }
       .user-pic {
@@ -81,6 +100,9 @@ main {
           aspect-ratio: 1;
         }
       }
+    }
+    .none{
+      display: none !important;
     }
     .mobile-stats {
       @include flex(center, space-between);
@@ -105,7 +127,7 @@ main {
       .reply-to {
         color: $ModerateBlue;
         font-weight: bold;
-        margin-right: .5rem;
+        margin-right: 0.5rem;
       }
       p {
         color: $LightgrayishBlue;
@@ -152,7 +174,7 @@ main {
     cursor: pointer;
     transition: all 0.1s ease-in-out;
     &:hover {
-      opacity: .5 ;
+      opacity: 0.5;
     }
   }
   textarea {
@@ -163,8 +185,8 @@ main {
     resize: none;
   }
 }
-@media (max-width:370px) {
-  html{
+@media (max-width: 370px) {
+  html {
     font-size: 14px;
   }
 }

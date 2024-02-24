@@ -1,15 +1,21 @@
 import data from "./data.js";
 const userContainer = document.querySelector(".user-container");
+
 document.querySelectorAll(".send-btn").forEach((btn) => {
   btn.addEventListener("click", () => {
-    const value = document.querySelector("textarea").value;
-    currentUserComment(data.comments.length, value, "just now");
-    console.log(data);
+    let value = document.querySelector("#new-comment");
+    currentUserComment(value.value, "just now");
+    value.value = ''
+
+    plusBtn();
+    minusBtn();
+    delComm();
+    edit();
   });
 });
 data.comments.map((v) => {
   const comment = `
- <div class="user">
+          <div class="user">
             <div class="comment_div">
               <div class="desktop-votes">
                 <span class="plus cursor-pointer">
@@ -57,6 +63,7 @@ data.comments.map((v) => {
                 </div>
               </div>
             </div>
+
             ${v.replies
               .map((rep) => {
                 return `
@@ -77,27 +84,46 @@ data.comments.map((v) => {
                     <img src=${rep.user.image.png} alt="" />
                   </span>
                   <span class="user-name"> ${rep.user.username} </span>
+                  <span class="you ${
+                    rep.user.username == "juliusomo" ? "" : "none"
+                  }">you</span>
                   <span class="post-date"> ${rep.createdAt} </span>
                 </div>
-                <div class="desktop-reply-btn cursor-pointer">
+                <div class="del-update ${
+                  rep.user.username == "juliusomo" ? "" : "none"
+                }">
+              <span class=" cursor-pointer delete">
+                <img src="images/icon-delete.svg" alt="">
+                Delete
+              </span>
+              <span class=" cursor-pointer edit">
+                <img src="images/icon-edit.svg" alt="">
+                Edit
+              </span>
+            </div>
+                <div class="desktop-reply-btn cursor-pointer ${
+                  rep.user.username == "juliusomo" ? "none" : ""
+                }">
                   <span>
-                    <img src="images/icon-reply.svg" alt="" />
+                    <img src='images/icon-reply.svg' alt="" />
                     Reply
                   </span>
-                </div>
-              </div>
+            </div>
+          </div>
               <div class="user-comment">
                 <span class="reply-to">@${rep.replyingTo}</span>
-                <p>
-                  Impressive! Though it seems the drag feature could be
-                  improved. But overall it looks incredible. You've nailed the
-                  design and the responsiveness at various breakpoints works
-                  really well.
+                <p class=''>
+                  ${rep.content}
                 </p>
+                ${
+                  rep.user.username == "juliusomo"
+                    ? `<textarea class='none'> ${rep.content}</textarea>`
+                    : ""
+                }
               </div>
               <div class="mobile-stats">
                 <div class="mobile-votes">
-                  <span class="plus cursor-pointer">
+                  <span class="plus cursor-pointer ">
                     <img src="images/icon-plus.svg" alt="" />
                   </span>
                   <span class="vote-num"> ${rep.score} </span>
@@ -105,47 +131,215 @@ data.comments.map((v) => {
                     <img src="images/icon-minus.svg" alt="" />
                   </span>
                 </div>
-                <span class="mobile-reply-btn cursor-pointer">
+                <span class='mobile-reply-btn cursor-pointer ${
+                  rep.user.username == "juliusomo" ? "none" : ""
+                }'>
                   <img src="images/icon-reply.svg" alt="" /> Reply</span
                 >
+                <div class="del-update ${
+                  rep.user.username == "juliusomo" ? "" : "none"
+                }">
+                    <span class="delete">
+                      <img src="images/icon-delete.svg" alt="">
+                      Delete
+                    </span>
+                    <span class="edit">
+                      <img src="images/icon-edit.svg" alt="">
+                        Edit
+                    </span>
+                  </div>
               </div>
             </div>
           </div>`;
               })
               .join("")}
+
         </div>`;
+
   userContainer.insertAdjacentHTML("beforeend", comment);
 });
-function currentUserComment(index, content, createdAt) {
-  data.comments[index] = {
-    id: index+1,
-    content: content,
-    score: 0,
-    createdAt: createdAt,
-    replies: [],
-    user: {
-      image: {
-        png: "./images/avatars/image-juliusomo.png",
-        webp: "./images/avatars/image-juliusomo.png",
-      },
-      username: "juliusomo",
-    },
-  };
+function plusBtn() {
+  document.querySelectorAll(".plus").forEach((element) => {
+    element.addEventListener("click", () => {
+      let vote = Number(element.nextElementSibling.innerHTML);
+      vote++;
+      element.nextElementSibling.innerHTML = vote;
+    });
+  });
 }
-function currentUserReply(
-  commentIndex,
-  replIndex,
-  id,
-  content,
-  replyingTo,
-  createdAt,
-  score
-) {
-  data.comments[commentIndex].replies[replIndex] = {
-    id: id,
-    content: content,
-    createdAt: createdAt,
-    score: score,
-    replyingTo: replyingTo,
-  };
+function minusBtn() {
+  document.querySelectorAll(".minus").forEach((element) => {
+    element.addEventListener("click", () => {
+      let vote = Number(element.previousElementSibling.innerHTML);
+      vote--;
+      element.previousElementSibling.innerHTML = vote;
+    });
+  });
 }
+
+function edit() {
+  const editBtn = document.querySelectorAll(".edit");
+  editBtn.forEach((editBtn) => {
+    editBtn.addEventListener("click", () => {
+      let textarea =
+        editBtn.parentElement.parentElement.previousElementSibling.querySelector("textarea");
+      let paraGraph =
+        editBtn.parentElement.parentElement.previousElementSibling.querySelector("p");
+      textarea.classList.toggle("none");
+      paraGraph.classList.toggle("none");
+      textarea.addEventListener("change", (e) => {
+        paraGraph.innerHTML = e.target.value;
+      });
+    });
+  });
+}
+
+function currentUserComment(content, createdAt, score = 0) {
+  const newComment = `
+  <div class="user">
+  <div class="comment_div">
+    <div class="desktop-votes">
+      <span class="plus cursor-pointer">
+        <img src="images/icon-plus.svg" alt="" />
+      </span>
+      <span class="vote-num"> ${score} </span>
+      <span class="minus cursor-pointer">
+        <img src="images/icon-minus.svg" alt="" />
+      </span>
+    </div>
+    <div>
+      <div class="profile-div">
+        <div>
+          <span class="user-pic">
+            <img src="./images/avatars/image-juliusomo.png" alt="" />
+          </span>
+          <span class="user-name"> juliusomo </span>
+          <span class="post-date"> ${createdAt} </span>
+        </div>
+        <div class="del-update">
+            <span class="delete cursor-pointer">
+              <img src="images/icon-delete.svg" alt="">
+              Delete
+            </span>
+            <span class="edit cursor-pointer">
+              <img src="images/icon-edit.svg" alt="">
+                Edit
+            </span>
+          </div>
+      </div>
+      <div class="user-comment">
+        <p>
+          ${content}
+        </p>
+        <textarea class='none'>${content}</textarea>
+      </div>
+      <div class="mobile-stats">
+        <div class="mobile-votes">
+          <span class="plus cursor-pointer">
+            <img src="images/icon-plus.svg" alt="" />
+          </span>
+          <span class="vote-num"> ${score} </span>
+          <span class="minus cursor-pointer">
+            <img src="images/icon-minus.svg" alt="" />
+          </span>
+        </div>
+        <div class="del-update">
+            <span class="delete cursor-pointer">
+              <img src="images/icon-delete.svg" alt="">
+              Delete
+            </span>
+            <span class="edit cursor-pointer">
+              <img src="images/icon-edit.svg" alt="">
+                Edit
+            </span>
+          </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  `;
+  userContainer.insertAdjacentHTML("beforeend", newComment);
+}
+
+function currentUserReply(content, replyingTo, createdAt, score = 0) {
+  const reply = `
+  <div class="comment_div reply">
+  <div class="desktop-votes">
+    <span class="plus cursor-pointer">
+      <img src="images/icon-plus.svg" alt="" />
+    </span>
+    <span class="vote-num"> ${score} </span>
+    <span class="minus cursor-pointer">
+      <img src="images/icon-minus.svg" alt="" />
+    </span>
+  </div>
+  <div>
+    <div class="profile-div">
+      <div>
+        <span class="user-pic">
+          <img src="./images/avatars/image-juliusomo.png" alt="" />
+        </span>
+        <span class="user-name"> juliusomo </span>
+        <span class="you">you</span>
+        <span class="post-date"> ${createdAt} </span>
+      </div>
+      <div class="desktop-reply-btn cursor-pointer">
+        <div class="del-update">
+      <span class="delete">
+        <img src="images/icon-delete.svg" alt="">
+        Delete
+      </span><span class="edit">
+        <img src="images/icon-edit.svg" alt="">
+        Edit
+      </span>
+    </div>
+  </div>
+</div>
+    <div class="user-comment">
+      <span class="reply-to">@${replyingTo}</span>
+      <p>
+        ${content}
+      </p>
+    </div>
+    <div class="mobile-stats">
+      <div class="mobile-votes">
+        <span class="plus cursor-pointer ">
+          <img src="images/icon-plus.svg" alt="" />
+        </span>
+        <span class="vote-num"> ${score} </span>
+        <span class="minus cursor-pointer">
+          <img src="images/icon-minus.svg" alt="" />
+        </span>
+      </div>
+      <div class="del-update">
+          <span class="delete">
+            <img src="images/icon-delete.svg" alt="">
+            Delete
+          </span>
+          <span class="edit">
+            <img src="images/icon-edit.svg" alt="">
+              Edit
+          </span>
+        </div>
+    </div>
+  </div>
+</div>
+  `;
+}
+document.querySelectorAll(".mobile-reply-btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    currentUserReply();
+  });
+});
+function delComm() {
+  const delBtn = document.querySelectorAll(".delete");
+  delBtn.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btn.parentElement.parentElement.parentElement.parentElement.remove();
+    });
+  });
+}
+delComm();
+edit();
+plusBtn();
+minusBtn();
